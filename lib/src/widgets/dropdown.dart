@@ -58,12 +58,9 @@ class _Dropdown<T> extends StatelessWidget {
 
   int get _selectedCount => items.where((element) => element.selected).length;
 
-  static const Map<ShortcutActivator, Intent> _webShortcuts =
-      <ShortcutActivator, Intent>{
-    SingleActivator(LogicalKeyboardKey.arrowDown):
-        DirectionalFocusIntent(TraversalDirection.down),
-    SingleActivator(LogicalKeyboardKey.arrowUp):
-        DirectionalFocusIntent(TraversalDirection.up),
+  static const Map<ShortcutActivator, Intent> _webShortcuts = <ShortcutActivator, Intent>{
+    SingleActivator(LogicalKeyboardKey.arrowDown): DirectionalFocusIntent(TraversalDirection.down),
+    SingleActivator(LogicalKeyboardKey.arrowUp): DirectionalFocusIntent(TraversalDirection.up),
   };
 
   @override
@@ -98,12 +95,10 @@ class _Dropdown<T> extends StatelessWidget {
                   decoration: searchDecoration,
                   onChanged: _onSearchChange,
                 ),
-              if (decoration.header != null)
-                Flexible(child: decoration.header!),
+              if (decoration.header != null) Flexible(child: decoration.header!),
               Flexible(
                 child: ListView.separated(
-                  separatorBuilder: (_, __) =>
-                      itemSeparator ?? const SizedBox.shrink(),
+                  separatorBuilder: (_, __) => itemSeparator ?? const SizedBox.shrink(),
                   shrinkWrap: true,
                   itemCount: items.length,
                   itemBuilder: (_, int index) => _buildOption(index, theme),
@@ -118,8 +113,7 @@ class _Dropdown<T> extends StatelessWidget {
                     style: theme.textTheme.bodyMedium,
                   ),
                 ),
-              if (decoration.footer != null)
-                Flexible(child: decoration.footer!),
+              if (decoration.footer != null) Flexible(child: decoration.footer!),
             ],
           ),
         ),
@@ -140,8 +134,8 @@ class _Dropdown<T> extends StatelessWidget {
       return itemBuilder!(option, index, () => onItemTap(option));
     }
 
-    final disabledColor = dropdownItemDecoration.disabledBackgroundColor ??
-        dropdownItemDecoration.backgroundColor?.withAlpha(100);
+    final disabledColor =
+        dropdownItemDecoration.disabledBackgroundColor ?? dropdownItemDecoration.backgroundColor?.withAlpha(100);
 
     final tileColor = option.disabled
         ? disabledColor
@@ -153,25 +147,23 @@ class _Dropdown<T> extends StatelessWidget {
         ? dropdownItemDecoration.disabledIcon
         : option.selected
             ? dropdownItemDecoration.selectedIcon
-            : null;
+            : dropdownItemDecoration.unselectedIcon;
 
     return Ink(
       child: ListTile(
         title: Text(option.label),
-        trailing: trailing,
+        trailing: !dropdownItemDecoration.shouldLead ? trailing : null,
+        leading: dropdownItemDecoration.shouldLead ? trailing : null,
         dense: true,
         autofocus: true,
         enabled: !option.disabled,
         selected: option.selected,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         focusColor: dropdownItemDecoration.backgroundColor?.withAlpha(100),
-        selectedColor: dropdownItemDecoration.selectedTextColor ??
-            theme.colorScheme.onSurface,
-        textColor:
-            dropdownItemDecoration.textColor ?? theme.colorScheme.onSurface,
+        selectedColor: dropdownItemDecoration.selectedTextColor ?? theme.colorScheme.onSurface,
+        textColor: dropdownItemDecoration.textColor ?? theme.colorScheme.onSurface,
         tileColor: tileColor ?? Colors.transparent,
-        selectedTileColor: dropdownItemDecoration.selectedBackgroundColor ??
-            Colors.grey.shade200,
+        selectedTileColor: dropdownItemDecoration.selectedBackgroundColor ?? Colors.grey.shade200,
         onTap: () {
           if (option.disabled) return;
 
@@ -187,9 +179,7 @@ class _Dropdown<T> extends StatelessWidget {
   void _onSearchChange(String value) => onSearchChange?.call(value);
 
   bool _reachedMaxSelection(DropdownItem<dynamic> option) {
-    return !option.selected &&
-        maxSelections > 0 &&
-        _selectedCount >= maxSelections;
+    return !option.selected && maxSelections > 0 && _selectedCount >= maxSelections;
   }
 }
 
