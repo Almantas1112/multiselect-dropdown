@@ -411,7 +411,7 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
 
             final bool showOnTop;
             if (widget.shouldForceOnBottom) {
-              showOnTop = true;
+              showOnTop = false;
             } else {
               showOnTop = availableHeight < widget.dropdownDecoration.maxHeight;
             }
