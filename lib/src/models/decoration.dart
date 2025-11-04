@@ -96,6 +96,7 @@ class DropdownItemDecoration {
   final Icon? unselectedIcon;
 
   final bool shouldLead;
+
 }
 
 /// Represents the decoration for the dropdown.
@@ -121,6 +122,7 @@ class DropdownDecoration {
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
     this.footer,
     this.header,
+    this.border,
   });
 
   /// The background color of the dropdown.
@@ -143,6 +145,8 @@ class DropdownDecoration {
 
   /// The custom header widget to display at the top of the dropdown.
   final Widget? header;
+
+  final BoxBorder? border;
 }
 
 /// Represents the decoration for the dropdown field.
