@@ -459,7 +459,7 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
               listenable: _listenable,
               builder: (_, __) {
                 return InkWell(
-                  mouseCursor: widget.enabled ? SystemMouseCursors.grab : SystemMouseCursors.forbidden,
+                  mouseCursor: widget.enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
                   onTap: widget.enabled ? _handleTap : null,
                   focusNode: _focusNode,
                   canRequestFocus: widget.enabled,
