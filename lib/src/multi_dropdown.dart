@@ -112,6 +112,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSearchChange,
     this.closeOnBackButton = false,
     this.shouldForceOnBottom = false,
+    this.selectedItemStyle,
     Key? key,
   })  : future = null,
         super(key: key);
@@ -161,6 +162,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSearchChange,
     this.closeOnBackButton = false,
     this.shouldForceOnBottom = false,
+    this.selectedItemStyle,
     Key? key,
   })  : items = const [],
         super(key: key);
@@ -233,6 +235,8 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
   final bool closeOnBackButton;
 
   final bool shouldForceOnBottom;
+
+  final TextStyle? selectedItemStyle;
 
   @override
   State<MultiDropdown<T>> createState() => _MultiDropdownState<T>();
@@ -574,7 +578,10 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
     final selectedOptions = _dropdownController.selectedItems;
 
     if (widget.singleSelect) {
-      return Text(selectedOptions.first.label);
+      return Text(
+        selectedOptions.first.label,
+        style: widget.selectedItemStyle,
+      );
     }
 
     return _buildSelectedItems(selectedOptions);

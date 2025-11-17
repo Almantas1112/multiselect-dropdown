@@ -152,7 +152,10 @@ class _Dropdown<T> extends StatelessWidget {
 
     return Ink(
       child: ListTile(
-        title: Text(option.label),
+        title: Text(
+          option.label,
+          style: dropdownItemDecoration.labelStyle,
+        ),
         trailing: !dropdownItemDecoration.shouldLead ? trailing : null,
         leading: dropdownItemDecoration.shouldLead ? trailing : null,
         dense: true,

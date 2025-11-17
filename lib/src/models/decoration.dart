@@ -67,6 +67,7 @@ class DropdownItemDecoration {
     this.disabledIcon,
     this.unselectedIcon,
     this.shouldLead = false,
+    this.labelStyle,
   });
 
   /// The background color of the dropdown item.
@@ -97,6 +98,7 @@ class DropdownItemDecoration {
 
   final bool shouldLead;
 
+  final TextStyle? labelStyle;
 }
 
 /// Represents the decoration for the dropdown.
