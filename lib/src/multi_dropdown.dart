@@ -113,6 +113,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.closeOnBackButton = false,
     this.shouldForceOnBottom = false,
     this.selectedItemStyle,
+    this.maxHeight,
     Key? key,
   })  : future = null,
         super(key: key);
@@ -163,6 +164,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.closeOnBackButton = false,
     this.shouldForceOnBottom = false,
     this.selectedItemStyle,
+    this.maxHeight,
     Key? key,
   })  : items = const [],
         super(key: key);
@@ -237,6 +239,8 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
   final bool shouldForceOnBottom;
 
   final TextStyle? selectedItemStyle;
+
+  final double? maxHeight;
 
   @override
   State<MultiDropdown<T>> createState() => _MultiDropdownState<T>();
@@ -601,12 +605,26 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
     }
 
     if (chipDecoration.wrap) {
-      return Wrap(
-        spacing: chipDecoration.spacing,
-        runSpacing: chipDecoration.runSpacing,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: selectedOptions.map((option) => _buildChip(option, chipDecoration)).toList(),
-      );
+      return widget.maxHeight != null
+          ? ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: widget.maxHeight!,
+              ),
+              child: SingleChildScrollView(
+                child: Wrap(
+                  spacing: chipDecoration.spacing,
+                  runSpacing: chipDecoration.runSpacing,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: selectedOptions.map((option) => _buildChip(option, chipDecoration)).toList(),
+                ),
+              ),
+            )
+          : Wrap(
+              spacing: chipDecoration.spacing,
+              runSpacing: chipDecoration.runSpacing,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: selectedOptions.map((option) => _buildChip(option, chipDecoration)).toList(),
+            );
     }
 
     return ConstrainedBox(
